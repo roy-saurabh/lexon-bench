@@ -33,7 +33,7 @@ keywords:
 license: MIT
 repository-code: "https://github.com/roy-saurabh/lexon-bench"
 url: "https://github.com/roy-saurabh/lexon-bench"
-doi: ""
+doi: "10.5281/zenodo.20397384"
 
 preferred-citation:
   type: article
@@ -46,5 +46,4 @@ preferred-citation:
   journal: "Information"
   publisher: "MDPI"
   year: 2026
-  doi: ""
-  notes: "Submitted. DOI to be inserted upon acceptance."
+  notes: "Submitted. Article DOI to be inserted upon acceptance. Software DOI: 10.5281/zenodo.20397384"
