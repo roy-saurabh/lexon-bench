@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  lexon:
+    build: .
+    volumes:
+      - ./outputs:/workspace/outputs
+      - ./data/processed:/workspace/data/processed
+      - ./data/splits:/workspace/data/splits
+    environment:
+      - LEXON_SEED=42
+    command: uv run python scripts/reproduce_paper_results.py
+
+  test:
+    build: .
+    command: uv run pytest tests/ -v --tb=short
+    volumes:
+      - ./outputs:/workspace/outputs

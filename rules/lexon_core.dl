@@ -1,0 +1,165 @@
+% LEXON Core Rules v1.1 — Soufflé-compatible stratified Datalog
+% with negation-as-failure under the closed-world assumption.
+%
+% This file documents the formal rule set implemented in
+% src/lexon/reasoning/engine.py  and described in the paper
+% (§2.4, Appendix A).
+%
+% Stratification levels:
+%   Stratum 0: conditionSatisfied (base facts + R1)
+%   Stratum 1: MissingCondition (R1b), exceptionFired (R3)
+%   Stratum 2: AllConditionsSatisfied (R2 — uses NOT MissingCondition)
+%   Stratum 3: Applicable (R4 — uses NOT exceptionFired)
+%   Stratum 4: EvidenceGap (R5), Conflict (R6), RemediationCandidate (R7)
+%
+% The perfect model of this program under the CWA is the unique
+% minimal model of the stratified program.
+
+% -------------------------------------------------------------------
+% Type declarations (Soufflé-style; informational for Python engine)
+% -------------------------------------------------------------------
+
+.decl condPred(condition:symbol, predicate:symbol)
+.decl condVal(condition:symbol, value:symbol)
+.decl sysProp(system:symbol, predicate:symbol, value:symbol)
+.decl hasCondition(obligation:symbol, condition:symbol)
+.decl hasException(obligation:symbol, exception:symbol)
+.decl excCondition(exception:symbol, condition:symbol)
+.decl hasObligation(clause:symbol, obligation:symbol)
+.decl requiresEvidence(obligation:symbol, evidence:symbol)
+.decl holdsEvidence(system:symbol, evidence:symbol)
+.decl obligActor(obligation:symbol, actor:symbol)
+.decl obligAction(obligation:symbol, action:symbol)
+.decl incompatibleActions(action1:symbol, action2:symbol)
+
+.decl conditionSatisfied(condition:symbol, system:symbol)
+.decl MissingCondition(obligation:symbol, system:symbol)
+.decl AllConditionsSatisfied(obligation:symbol, system:symbol)
+.decl exceptionFired(obligation:symbol, system:symbol)
+.decl Applicable(obligation:symbol, system:symbol)
+.decl EvidenceGap(obligation:symbol, system:symbol, evidence:symbol)
+.decl Conflict(o1:symbol, o2:symbol, system:symbol)
+.decl RemediationCandidate(system:symbol, evidence:symbol)
+
+% -------------------------------------------------------------------
+% R1 — Condition satisfaction (Stratum 0)
+%
+% A condition C is satisfied in system S if the condition predicate-value
+% pair matches a property of S.
+% -------------------------------------------------------------------
+
+conditionSatisfied(C, S) :-
+  condPred(C, P),
+  condVal(C, V),
+  sysProp(S, P, V).
+
+% -------------------------------------------------------------------
+% R1b — Missing condition (Stratum 1)
+%
+% A required condition C of obligation O is missing in S if it is
+% not satisfied.  This derives the "set of missing conditions".
+% -------------------------------------------------------------------
+
+MissingCondition(O, S) :-
+  hasCondition(O, C),
+  !conditionSatisfied(C, S).
+
+% -------------------------------------------------------------------
+% R2 — Universal condition satisfaction — CORRECTED (Stratum 2)
+%
+% Activation requires ALL conditions to be satisfied.
+% We derive AllConditionsSatisfied by the ABSENCE of any missing
+% condition.  This is the corrected form: a single satisfied condition
+% is INSUFFICIENT.  (Earlier specifications used an existential rule.)
+% -------------------------------------------------------------------
+
+AllConditionsSatisfied(O, S) :-
+  hasObligation(_, O),
+  !MissingCondition(O, S).
+
+% -------------------------------------------------------------------
+% R3 — Exception firing (Stratum 1)
+%
+% exceptionFired(O, S) holds if at least one exception condition of O
+% is satisfied in S.  Exceptions are disjunctive: ANY one fires to
+% suppress applicability.
+% -------------------------------------------------------------------
+
+exceptionFired(O, S) :-
+  hasException(O, X),
+  excCondition(X, C),
+  conditionSatisfied(C, S).
+
+% -------------------------------------------------------------------
+% R4 — Obligation activation (Stratum 3)
+%
+% Applicable(O, S) iff all conditions are satisfied AND no exception
+% fires.
+% -------------------------------------------------------------------
+
+Applicable(O, S) :-
+  AllConditionsSatisfied(O, S),
+  !exceptionFired(O, S).
+
+% -------------------------------------------------------------------
+% R5 — Evidence-gap detection (Stratum 4)
+%
+% EvidenceGap(O, S, E) for each required evidence item E of an
+% applicable obligation O that is not held by S.
+% Under CWA: holdsEvidence(S, E) is false for any E not asserted.
+% -------------------------------------------------------------------
+
+EvidenceGap(O, S, E) :-
+  Applicable(O, S),
+  requiresEvidence(O, E),
+  !holdsEvidence(S, E).
+
+% -------------------------------------------------------------------
+% R6 — Direct conflict detection (Stratum 4)
+%
+% Conflict(O1, O2, S) holds when both O1 and O2 are applicable in S,
+% they share the same actor (same duty-bearer), and their actions are
+% mutually incompatible.  Note O1 != O2 to avoid self-conflict.
+%
+% Scope: direct action-incompatibility only.
+% Temporal and resource conflicts are out of scope (§4.4).
+% -------------------------------------------------------------------
+
+Conflict(O1, O2, S) :-
+  Applicable(O1, S),
+  Applicable(O2, S),
+  obligActor(O1, A),
+  obligActor(O2, A),
+  obligAction(O1, Act1),
+  obligAction(O2, Act2),
+  incompatibleActions(Act1, Act2),
+  O1 != O2.
+
+% -------------------------------------------------------------------
+% R7 — Evidence-remediation candidates (Stratum 4)
+%
+% RemediationCandidate(S, E) collects evidence items E for which
+% any applicable obligation in S has a gap.
+% This is the greedy candidate set; computing the minimum-cardinality
+% set is plausibly NP-hard (see §2.5 complexity note).
+% -------------------------------------------------------------------
+
+RemediationCandidate(S, E) :-
+  EvidenceGap(_, S, E).
+
+% -------------------------------------------------------------------
+% Incompatibility axioms (illustrative — full set in
+% rules/incompatibility_axioms.yaml)
+% -------------------------------------------------------------------
+
+incompatibleActions(ACT-FullAutomatedDecision, ACT-RequireHumanOverride).
+incompatibleActions(ACT-RequireHumanOverride, ACT-FullAutomatedDecision).
+incompatibleActions(ACT-RetainDataMaximal, ACT-MinimiseDataRetention).
+incompatibleActions(ACT-MinimiseDataRetention, ACT-RetainDataMaximal).
+incompatibleActions(ACT-ProhibitedPurposeUse, ACT-PermittedPurposeUse).
+incompatibleActions(ACT-PermittedPurposeUse, ACT-ProhibitedPurposeUse).
+incompatibleActions(ACT-DiscloseToPublic, ACT-MaintainConfidentiality).
+incompatibleActions(ACT-MaintainConfidentiality, ACT-DiscloseToPublic).
+incompatibleActions(ACT-FullAutomatedDecision, ACT-ConductHumanReview).
+incompatibleActions(ACT-ConductHumanReview, ACT-FullAutomatedDecision).
+incompatibleActions(ACT-RetainDataMaximal, ACT-ConductDPIA).

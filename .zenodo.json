@@ -1,0 +1,44 @@
+{
+  "title": "LEXON-Bench: Executable AI Regulatory Obligation Reasoning — Companion Benchmark Repository",
+  "description": "LEXON-Bench is the companion benchmark repository for the manuscript 'LEXON: Executable AI Regulatory Obligation Reasoning with Typed Knowledge Graphs and Stratified Datalog' (MDPI Information). It provides a deterministic synthetic benchmark (25 clauses, 30 AI system profiles, 750 clause-profile instances) for evaluating executable obligation activation, evidence-gap detection, cross-clause conflict detection, and evidence-remediation candidate generation under explicit closed-world assumptions and stratified-Datalog inference. Includes benchmark data, gold labels, Datalog rule specifications, Python baseline implementations (static checklist, ontology-only, flat-rule engine), evaluation scripts, bootstrap CI computation, paper-ready tables, and a single-command reproduction pipeline. All random seeds are fixed (seed=42); results are deterministic and fully reproducible.",
+  "creators": [
+    {
+      "name": "Saurabh, Roy",
+      "affiliation": "AffectLog SAS",
+      "email": "roy@affectlog.com"
+    }
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "AI regulation",
+    "knowledge graphs",
+    "Datalog",
+    "stratified Datalog",
+    "compliance reasoning",
+    "regulatory information systems",
+    "evidence-gap detection",
+    "conflict detection",
+    "computational law",
+    "AI governance",
+    "EU AI Act",
+    "NIST AI RMF",
+    "ISO/IEC 42001",
+    "benchmark",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/roy-saurabh/lexon-bench",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ],
+  "notes": "Companion repository for the LEXON manuscript submitted to MDPI Information. Results: LEXON achieves corpus-level F1=1.000 for T1 (obligation activation) and T2 (evidence-gap detection) on the 150-instance held-out test set; T3 (conflict detection) F1=0.957 (TP=11, FP=1, FN=0). All outputs are reproducible via 'make reproduce' with seed=42.",
+  "language": "eng",
+  "communities": [
+    {"identifier": "zenodo"}
+  ]
+}

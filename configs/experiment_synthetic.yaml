@@ -1,0 +1,42 @@
+# Experiment configuration: full synthetic benchmark
+# This is the default configuration used by `make reproduce`.
+
+benchmark:
+  n_clauses: 25
+  n_profiles: 30
+  n_instances: 750
+  seed: 42
+  split_fractions:
+    train: 0.60
+    dev: 0.20
+    test: 0.20
+
+evaluation:
+  split: test
+  bootstrap_iterations: 1000
+  bootstrap_seed: 42
+  significance_alpha: 0.05
+  bonferroni_correction: true
+  n_comparisons: 4  # T1, T2, T3, T4
+
+systems:
+  - name: "LEXON (full)"
+    module: lexon.reasoning.engine
+    class: LexonEngine
+  - name: "B1 Static checklist"
+    module: lexon.baselines.checklist
+    class: ChecklistBaseline
+  - name: "B2 Ontology (no rules)"
+    module: lexon.baselines.ontology_only
+    class: OntologyOnlyBaseline
+  - name: "B3 Flat rules (no graph)"
+    module: lexon.baselines.flat_rules
+    class: FlatRulesBaseline
+
+llm_baseline:
+  enabled: false
+  # To enable: set enabled: true AND provide LEXON_LLM_API_KEY env var
+  # AND pass --run-llm-baseline CLI flag
+  model: "gpt-4o-2024-08-06"
+  temperature: 0.0
+  seed: 42

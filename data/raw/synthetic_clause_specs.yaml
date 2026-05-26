@@ -1,0 +1,24 @@
+# Synthetic clause specifications metadata
+# The actual clause definitions are in src/lexon/benchmark/generate_synthetic.py
+# This file documents the design choices.
+n_clauses: 25
+n_ambiguous: 8
+thematic_groups:
+  - name: "Transparency and information"
+    clauses: [CL-001, CL-002, CL-003, CL-004, CL-005]
+    ambiguous: []
+  - name: "Risk management and conformity assessment"
+    clauses: [CL-006, CL-007, CL-008, CL-009, CL-010]
+    ambiguous: [CL-009, CL-010]
+  - name: "Special-category data handling"
+    clauses: [CL-011, CL-012, CL-013, CL-014, CL-015]
+    ambiguous: [CL-013, CL-015]
+  - name: "Human oversight and human-in-the-loop"
+    clauses: [CL-016, CL-017, CL-018, CL-019, CL-020]
+    ambiguous: [CL-018, CL-020]
+  - name: "Cross-instrument provisions"
+    clauses: [CL-021, CL-022, CL-023, CL-024, CL-025]
+    ambiguous: [CL-023, CL-025]
+note: >
+  All clauses are synthetic. They are NOT official legal text and do NOT
+  constitute legal advice. They are purpose-built for evaluating LEXON.

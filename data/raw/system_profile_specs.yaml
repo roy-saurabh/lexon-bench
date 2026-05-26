@@ -1,0 +1,26 @@
+# System profile group specifications
+# Actual profiles defined in src/lexon/benchmark/generate_synthetic.py
+n_profiles: 30
+groups:
+  - ids: [SYS-001, SYS-002, SYS-003, SYS-004, SYS-005, SYS-006]
+    risk_level: MinimalRisk
+    domain: General
+    difficulty: easy
+  - ids: [SYS-007, SYS-008, SYS-009, SYS-010, SYS-011, SYS-012]
+    risk_level: HighRisk
+    domain: Healthcare/Biometric
+    difficulty: medium
+  - ids: [SYS-013, SYS-014, SYS-015, SYS-016, SYS-017, SYS-018]
+    risk_level: LimitedRisk
+    domain: General/Education
+    difficulty: easy-medium
+  - ids: [SYS-019, SYS-020, SYS-021, SYS-022, SYS-023, SYS-024]
+    risk_level: HighRisk
+    domain: Mixed
+    actor: Deployer/Importer
+    difficulty: hard
+  - ids: [SYS-025, SYS-026, SYS-027, SYS-028, SYS-029, SYS-030]
+    risk_level: Underspecified
+    domain: Mixed
+    actor: Mixed
+    difficulty: hard

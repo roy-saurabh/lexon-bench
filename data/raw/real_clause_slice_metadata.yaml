@@ -1,0 +1,27 @@
+# Real-clause slice metadata (illustrative, NOT for evaluation)
+# This slice uses short paraphrased obligation metadata only.
+# NOT official legal text. NOT legal advice.
+# Status: Illustrative only. Full legal review required before use in evaluation.
+
+disclaimer: >
+  This slice is for illustrative purposes only. The short IDs and paraphrased
+  obligation metadata do not reproduce official regulatory text verbatim.
+  They have not been validated by legal experts. They are NOT suitable for
+  production compliance use.
+
+real_clause_slice:
+  - id: RC-EU-AIA-001
+    instrument: EU AI Act
+    paraphrased_obligation: >
+      Providers of high-risk AI systems must maintain technical documentation.
+    note: Paraphrase only. Consult official text (Regulation (EU) 2024/1689).
+  - id: RC-NIST-001
+    instrument: NIST AI RMF
+    paraphrased_obligation: >
+      Organisations should govern AI risk through documented policies.
+    note: Paraphrase only. Consult NIST AI 100-1.
+  - id: RC-ISO-001
+    instrument: ISO/IEC 42001
+    paraphrased_obligation: >
+      Organisations shall establish an AI management system.
+    note: Paraphrase only. Consult ISO/IEC 42001:2023.

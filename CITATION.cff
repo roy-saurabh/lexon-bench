@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "LEXON-Bench: Executable AI Regulatory Obligation Reasoning — Companion Benchmark Repository"
+version: "1.0.0"
+date-released: "2026-05-26"
+authors:
+  - family-names: Saurabh
+    given-names: Roy
+    email: roy@affectlog.com
+    affiliation: AffectLog SAS
+    orcid: ""
+abstract: >
+  LEXON-Bench is the companion benchmark repository for the manuscript
+  "LEXON: Executable AI Regulatory Obligation Reasoning with Typed Knowledge
+  Graphs and Stratified Datalog" (submitted to MDPI Information). It provides
+  a deterministic synthetic benchmark (25 clauses, 30 system profiles, 750
+  clause-profile instances) for evaluating executable obligation activation,
+  evidence-gap detection, conflict detection, and evidence-remediation candidate
+  generation under explicit closed-world assumptions and stratified-Datalog
+  inference. All gold labels, rule specifications, baseline implementations,
+  evaluation scripts, and reproduction commands are included.
+keywords:
+  - AI regulation
+  - knowledge graphs
+  - Datalog
+  - compliance reasoning
+  - regulatory information systems
+  - evidence-gap detection
+  - computational law
+  - AI governance
+  - MDPI Information
+license: MIT
+repository-code: "https://github.com/roy-saurabh/lexon-bench"
+url: "https://github.com/roy-saurabh/lexon-bench"
+doi: ""
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Saurabh
+      given-names: Roy
+      email: roy@affectlog.com
+      affiliation: AffectLog SAS
+  title: "LEXON: Executable AI Regulatory Obligation Reasoning with Typed Knowledge Graphs and Stratified Datalog"
+  journal: "Information"
+  publisher: "MDPI"
+  year: 2026
+  doi: ""
+  notes: "Submitted. DOI to be inserted upon acceptance."

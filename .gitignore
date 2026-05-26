@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+.uv/
+venv/
+env/
+
+# Test / lint caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Archives
+*.zip
+*.tar.gz
+
+# Large prediction JSONL files (reproducible via make reproduce)
+outputs/results/*.jsonl
+outputs/figures/*.png
+outputs/audit/*.json
+
+# Secrets
+.env
+.env.local
+LEXON_LLM_API_KEY
+
+# Exclude .gitkeep only if empty dirs committed (keep the file itself)
+# outputs/.gitkeep is committed intentionally
