@@ -425,7 +425,7 @@ Future work should: extend the benchmark to expert-validated real regulatory pro
 
 **Informed Consent Statement:** Not applicable.
 
-**Data Availability Statement:** The synthetic benchmark instances, system profiles, Datalog rule specifications, evaluation scripts, and generated results are openly available in the LEXON-Bench GitHub repository at https://github.com/roy-saurabh/lexon-bench and archived on Zenodo (DOI: https://doi.org/10.5281/zenodo.20397384 — to be confirmed after release). The benchmark data are synthetic and contain no personal data. Code is released under the MIT License; synthetic benchmark data are released under CC-BY-4.0.
+**Data Availability Statement:** The synthetic benchmark instances, system profiles, Datalog rule specifications, evaluation scripts, and generated results are openly available in the LEXON-Bench GitHub repository at https://github.com/roy-saurabh/lexon-bench and archived on Zenodo at https://doi.org/10.5281/zenodo.20397384. The benchmark data are synthetic and contain no personal data. Code is released under the MIT License; synthetic benchmark data are released under CC-BY-4.0.
 
 **Acknowledgments:** During the preparation of this manuscript, the author used a large language model assistant for language editing and drafting support on prose sections. The author reviewed and edited all output and takes full responsibility for the content of this publication. Generative AI was not used to generate benchmark data, gold labels, or experimental results.
 

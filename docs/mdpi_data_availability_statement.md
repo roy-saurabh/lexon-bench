@@ -4,8 +4,9 @@
 
 > The original synthetic benchmark instances, system profiles, Datalog-style rule
 > specifications, evaluation scripts, and generated results presented in this study
-> are available in the LEXON-Bench repository at [DOI/URL — to be inserted on
-> submission]. The benchmark data are synthetic and contain no personal data. The
+> are available in the LEXON-Bench repository at
+> https://github.com/roy-saurabh/lexon-bench and archived on Zenodo at
+> https://doi.org/10.5281/zenodo.20397384. The benchmark data are synthetic and contain no personal data. The
 > code is released under the MIT License, and the synthetic benchmark data are
 > released under CC-BY-4.0.
 
