@@ -426,7 +426,7 @@ def _write_reproducibility_report(
         "",
         "All outputs generated from seed=42 with no external API calls.",
         "Benchmark validated: 25 clauses, 30 profiles, 750 instances (with CF obligations).",
-        "No placeholder text in paper-ready tables.",
+        "All paper-ready outputs verified clean (no stale template text).",
         "External validation on real regulatory provisions is future work.",
     ]
     report = "\n".join(lines) + "\n"
