@@ -59,7 +59,7 @@ Running `make reproduce` from a clean clone will:
 1. Generate LEXON-Bench: 25 synthetic clauses, 30 system profiles, 750 instances (seed=42)
 2. Compute gold labels from formal definitions
 3. Run LEXON full system and baselines B1–B3
-4. Compute precision, recall, F1, and bootstrap 95% CIs for T1–T3
+4. Compute precision, recall, F1, and bootstrap 95% CIs for T1–T2; compute TP/FP/FN and P/R/F1 for T3
 5. Generate paper-ready tables (`outputs/tables/`)
 6. Generate figures (`outputs/figures/`)
 7. Write a reproducibility report (`outputs/reports/reproducibility_report.md`)
@@ -145,7 +145,7 @@ lexon-bench/
 │       ├── tables.py           # Paper-ready Markdown tables
 │       └── figures.py          # Matplotlib figures
 ├── rules/
-│   ├── lexon_core.dl           # Soufflé-compatible Datalog rules (R1–R7)
+│   ├── lexon_core.dl           # Soufflé-inspired Datalog-style pseudocode (R1–R7)
 │   ├── lexon_core_corrected.md # Corrected universal activation explanation
 │   └── incompatibility_axioms.yaml
 ├── data/
@@ -252,7 +252,8 @@ For the software repository:
   year={2026},
   publisher={GitHub / Zenodo},
   url={https://github.com/roy-saurabh/lexon-bench},
-  version={1.0.2}
+  version={1.0.2},
+  doi={10.5281/zenodo.20399201}
 }
 ```
 
