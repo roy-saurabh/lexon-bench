@@ -36,11 +36,11 @@ def make_table_activation_gap(
     """
     Generate Table 5 equivalent: T1 and T2 metrics.
 
-    Columns: System | T1 P | T1 R | T1 F1 | 95% CI | T2 P | T2 R | T2 F1 | 95% CI
+    Columns: System | T1 P | T1 R | Corpus T1 F1 | Mean-inst T1 F1 95% CI | T2 P | T2 R | Corpus T2 F1 | Mean-inst T2 F1 95% CI
     """
     header = (
-        "| System | T1 P | T1 R | T1 F1 | T1 95% CI | T2 P | T2 R | T2 F1 | T2 95% CI |\n"
-        "|:-------|:-----|:-----|:------|:----------|:-----|:-----|:------|:----------|\n"
+        "| System | T1 P | T1 R | Corpus T1 F1 | Mean-inst T1 F1 95% CI | T2 P | T2 R | Corpus T2 F1 | Mean-inst T2 F1 95% CI |\n"
+        "|:-------|:-----|:-----|:-------------|:------------------------|:-----|:-----|:-------------|:------------------------|\n"
     )
     rows = []
     for sys in systems:
@@ -61,13 +61,15 @@ def make_table_activation_gap(
     note = (
         "\n*Table: Obligation activation (T1) and evidence-gap detection (T2) "
         f"on the {systems[0].split if systems else 'test'} split. "
-        "Corpus-level P/R/F1 (main columns) are micro-averaged TP/FP/FN across all instances. "
-        "95% CIs are bootstrapped (1000 iterations, seed=42) over per-instance F1 scores; "
-        "most instances have no applicable obligations and contribute F1=0, so the CI "
-        "reflects per-instance variability rather than uncertainty in the corpus-level F1. "
-        "LEXON T1/T2 F1=1.00 on this synthetic benchmark is by construction (formal rules "
-        "and gold oracle share identical semantics for unambiguous clauses); "
-        "real regulatory-text evaluation is reported in the companion paper.*\n"
+        "**Corpus T1/T2 F1** (main columns) are corpus-level micro-averaged F1 "
+        "computed from summed TP/FP/FN across all instances. "
+        "**Mean-inst F1 95% CI** (bracketed columns) are bootstrapped (1000 iterations, "
+        "seed=42) confidence intervals over per-instance F1 scores; these measure "
+        "per-instance variability and are not uncertainty intervals for the corpus-level F1. "
+        "LEXON corpus T1/T2 F1=1.00 on this synthetic benchmark is by construction "
+        "(formal rules and gold oracle share identical semantics for unambiguous clauses; "
+        "see §2.7 and §4.4). "
+        "External validation on real regulatory provisions is future work.*\n"
     )
     table = header + "\n".join(rows) + "\n" + note
 

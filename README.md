@@ -44,6 +44,12 @@ T3 cross-clause conflict detection: TP=11, FP=1, FN=0 across 30 system profiles.
 T1/T2 F1=1.000 is expected on this synthetic benchmark and confirms faithful implementation
 of the formal semantics (see §2.7, §3.1 of the paper for full discussion).
 
+> **LEXON-Bench is primarily an implementation-conformance benchmark, not an
+> independent legal-validity benchmark.** Gold labels are derived from the same
+> formal definitions as the LEXON engine; F1=1.000 on T1/T2 reflects faithful
+> implementation of those definitions, not external legal-compliance validity.
+> External validation on real regulatory provisions is future work.
+
 Reproduce all results with one command: `make reproduce`
 
 ## What this repository reproduces

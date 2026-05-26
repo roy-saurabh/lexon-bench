@@ -1,0 +1,39 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+This license applies to the synthetic benchmark DATA in this repository
+(the `data/` directory and any generated outputs derived from it):
+
+  data/raw/          — clause and profile specifications
+  data/processed/    — generated JSONL benchmark instances and gold labels
+  data/splits/       — train/dev/test split files
+  outputs/           — generated evaluation results, tables, figures, reports
+
+SOURCE CODE (everything outside the data/ directory) is licensed under the
+MIT License; see the LICENSE file.
+
+---
+
+You are free to:
+
+  Share — copy and redistribute the data in any medium or format
+  Adapt — remix, transform, and build upon the data for any purpose,
+          even commercially
+
+Under the following terms:
+
+  Attribution — You must give appropriate credit, provide a link to the
+  license, and indicate if changes were made. You may do so in any
+  reasonable manner, but not in any way that suggests the licensor
+  endorses you or your use.
+
+  No additional restrictions — You may not apply legal terms or
+  technological measures that legally restrict others from doing anything
+  the license permits.
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+---
+
+DISCLAIMER: The synthetic benchmark clauses are NOT official legal text and
+do NOT constitute legal advice. They are purpose-built for evaluating the
+LEXON reasoning engine.

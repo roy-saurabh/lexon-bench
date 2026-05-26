@@ -143,6 +143,16 @@ class GoldOracle:
                 val = profile.actor.value
             elif pred == "deployment_context":
                 val = profile.deployment_context.value
+            elif pred == "capability":
+                capabilities = {c.value for c in profile.capabilities}
+                exc_val = exc.value
+                if isinstance(exc_val, list):
+                    if any(v in capabilities for v in exc_val):
+                        return ApplicabilityStatus.NOT_APPLICABLE
+                else:
+                    if exc_val in capabilities:
+                        return ApplicabilityStatus.NOT_APPLICABLE
+                continue
             elif pred in props:
                 val = props[pred]
             else:
@@ -163,6 +173,18 @@ class GoldOracle:
                 val = profile.actor.value
             elif pred == "deployment_context":
                 val = profile.deployment_context.value
+            elif pred == "capability":
+                capabilities = {c.value for c in profile.capabilities}
+                expected = cond.value
+                if isinstance(expected, list):
+                    satisfied = any(v in capabilities for v in expected)
+                else:
+                    satisfied = expected in capabilities
+                if cond.negated:
+                    satisfied = not satisfied
+                if not satisfied:
+                    return ApplicabilityStatus.NOT_APPLICABLE
+                continue
             elif pred in props:
                 val = props[pred]
             else:

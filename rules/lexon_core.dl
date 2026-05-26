@@ -1,4 +1,4 @@
-% LEXON Core Rules v1.1 — Soufflé-compatible stratified Datalog
+% LEXON Core Rules v1.2 — Datalog-style pseudocode (Soufflé-inspired syntax)
 % with negation-as-failure under the closed-world assumption.
 %
 % This file documents the formal rule set implemented in
@@ -14,6 +14,25 @@
 %
 % The perfect model of this program under the CWA is the unique
 % minimal model of the stratified program.
+%
+% THREE-VALUED LOGIC NOTE:
+%   The Python implementation (engine.py) uses three-valued semantics:
+%   True / False / Unknown.  A condition whose predicate is absent from
+%   a profile returns Unknown rather than False, yielding "Uncertain"
+%   activation rather than "NotApplicable".  These two-valued Datalog
+%   rules do not express that distinction; they are Datalog-style
+%   pseudocode capturing the core rule structure and should not be
+%   treated as directly executable Soufflé code for the three-valued
+%   fragment.  The stratification and rule names are faithful; the
+%   Unknown/Uncertain path requires additional predicates (see below).
+%
+% CAPABILITY BRIDGE RULE NOTE:
+%   Capabilities are stored separately from generic properties in the
+%   system profile (profile.capabilities : list[Capability]).  The
+%   bridge fact sysProp(S, "capability", C) is asserted for each
+%   capability C held by system S before rule evaluation.  This
+%   corresponds to the bridge rule:
+%     sysProp(S, "capability", C) :- hasCapability(S, C).
 
 % -------------------------------------------------------------------
 % Type declarations (Soufflé-style; informational for Python engine)
@@ -22,6 +41,7 @@
 .decl condPred(condition:symbol, predicate:symbol)
 .decl condVal(condition:symbol, value:symbol)
 .decl sysProp(system:symbol, predicate:symbol, value:symbol)
+.decl hasCapability(system:symbol, capability:symbol)
 .decl hasCondition(obligation:symbol, condition:symbol)
 .decl hasException(obligation:symbol, exception:symbol)
 .decl excCondition(exception:symbol, condition:symbol)
@@ -29,6 +49,7 @@
 .decl requiresEvidence(obligation:symbol, evidence:symbol)
 .decl holdsEvidence(system:symbol, evidence:symbol)
 .decl obligActor(obligation:symbol, actor:symbol)
+.decl systemActor(system:symbol, actor:symbol)
 .decl obligAction(obligation:symbol, action:symbol)
 .decl incompatibleActions(action1:symbol, action2:symbol)
 
@@ -36,10 +57,21 @@
 .decl MissingCondition(obligation:symbol, system:symbol)
 .decl AllConditionsSatisfied(obligation:symbol, system:symbol)
 .decl exceptionFired(obligation:symbol, system:symbol)
+.decl actorMatches(obligation:symbol, system:symbol)
 .decl Applicable(obligation:symbol, system:symbol)
 .decl EvidenceGap(obligation:symbol, system:symbol, evidence:symbol)
 .decl Conflict(o1:symbol, o2:symbol, system:symbol)
 .decl RemediationCandidate(system:symbol, evidence:symbol)
+
+% -------------------------------------------------------------------
+% Capability bridge rule (Stratum 0)
+%
+% Lift each system capability into the generic sysProp relation so
+% that capability conditions are handled uniformly by R1.
+% -------------------------------------------------------------------
+
+sysProp(S, "capability", C) :-
+  hasCapability(S, C).
 
 % -------------------------------------------------------------------
 % R1 — Condition satisfaction (Stratum 0)
@@ -91,13 +123,38 @@ exceptionFired(O, S) :-
   conditionSatisfied(C, S).
 
 % -------------------------------------------------------------------
+% Actor matching (Stratum 0)
+%
+% actorMatches(O, S) holds when the obligation's required actor is
+% compatible with the system's actor.  All rules are range-restricted:
+% every variable in the head is bound in the body.
+%
+%   (a) Exact match
+%   (b) Obligation actor is "Mixed" — applies to any system actor
+%   (c) System actor is "Mixed" — any obligation actor applies
+% -------------------------------------------------------------------
+
+actorMatches(O, S) :-
+  obligActor(O, A),
+  systemActor(S, A).
+
+actorMatches(O, S) :-
+  obligActor(O, "Mixed"),
+  systemActor(S, _A).
+
+actorMatches(O, S) :-
+  obligActor(O, _A),
+  systemActor(S, "Mixed").
+
+% -------------------------------------------------------------------
 % R4 — Obligation activation (Stratum 3)
 %
-% Applicable(O, S) iff all conditions are satisfied AND no exception
-% fires.
+% Applicable(O, S) iff actor matches, all conditions are satisfied,
+% and no exception fires.
 % -------------------------------------------------------------------
 
 Applicable(O, S) :-
+  actorMatches(O, S),
   AllConditionsSatisfied(O, S),
   !exceptionFired(O, S).
 
@@ -152,14 +209,14 @@ RemediationCandidate(S, E) :-
 % rules/incompatibility_axioms.yaml)
 % -------------------------------------------------------------------
 
-incompatibleActions(ACT-FullAutomatedDecision, ACT-RequireHumanOverride).
-incompatibleActions(ACT-RequireHumanOverride, ACT-FullAutomatedDecision).
-incompatibleActions(ACT-RetainDataMaximal, ACT-MinimiseDataRetention).
-incompatibleActions(ACT-MinimiseDataRetention, ACT-RetainDataMaximal).
-incompatibleActions(ACT-ProhibitedPurposeUse, ACT-PermittedPurposeUse).
-incompatibleActions(ACT-PermittedPurposeUse, ACT-ProhibitedPurposeUse).
-incompatibleActions(ACT-DiscloseToPublic, ACT-MaintainConfidentiality).
-incompatibleActions(ACT-MaintainConfidentiality, ACT-DiscloseToPublic).
-incompatibleActions(ACT-FullAutomatedDecision, ACT-ConductHumanReview).
-incompatibleActions(ACT-ConductHumanReview, ACT-FullAutomatedDecision).
-incompatibleActions(ACT-RetainDataMaximal, ACT-ConductDPIA).
+incompatibleActions("ACT-FullAutomatedDecision", "ACT-RequireHumanOverride").
+incompatibleActions("ACT-RequireHumanOverride", "ACT-FullAutomatedDecision").
+incompatibleActions("ACT-RetainDataMaximal", "ACT-MinimiseDataRetention").
+incompatibleActions("ACT-MinimiseDataRetention", "ACT-RetainDataMaximal").
+incompatibleActions("ACT-ProhibitedPurposeUse", "ACT-PermittedPurposeUse").
+incompatibleActions("ACT-PermittedPurposeUse", "ACT-ProhibitedPurposeUse").
+incompatibleActions("ACT-DiscloseToPublic", "ACT-MaintainConfidentiality").
+incompatibleActions("ACT-MaintainConfidentiality", "ACT-DiscloseToPublic").
+incompatibleActions("ACT-FullAutomatedDecision", "ACT-ConductHumanReview").
+incompatibleActions("ACT-ConductHumanReview", "ACT-FullAutomatedDecision").
+incompatibleActions("ACT-RetainDataMaximal", "ACT-ConductDPIA").

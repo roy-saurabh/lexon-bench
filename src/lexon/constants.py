@@ -25,6 +25,7 @@ PROFILE_PROPERTIES = {
     "domain": "Deployment domain of the AI system",
     "actor": "Role of the duty-bearer",
     "deployment_context": "Deployment jurisdiction / context",
+    "capability": "Technical capability of the AI system (membership in profile.capabilities)",
     "affectsNaturalPerson": "System outputs affect decisions about natural persons",
     "isDeployed": "System is currently deployed or in active use",
     "hasResearchExemption": "System qualifies for research exemption",

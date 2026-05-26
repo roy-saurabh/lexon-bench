@@ -111,6 +111,16 @@ class LexonEngine:
             val = profile.actor.value
         elif pred == "deployment_context":
             val = profile.deployment_context.value
+        elif pred == "capability":
+            # sysProp(S, capability, C) :- hasCapability(S, C).
+            # profile.capabilities is list[Capability]; check membership.
+            capabilities = {c.value for c in profile.capabilities}
+            expected = cond.value
+            if isinstance(expected, list):
+                satisfied = any(v in capabilities for v in expected)
+            else:
+                satisfied = expected in capabilities
+            return not satisfied if cond.negated else satisfied
         elif pred in props:
             val = props[pred]
         else:
