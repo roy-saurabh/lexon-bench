@@ -1,5 +1,6 @@
 {
   "title": "LEXON-Bench: Executable AI Regulatory Obligation Reasoning — Companion Benchmark Repository",
+  "version": "1.0.2",
   "description": "LEXON-Bench is the companion benchmark repository for the manuscript 'LEXON: Executable AI Regulatory Obligation Reasoning with Typed Knowledge Graphs and Stratified Datalog' (MDPI Information). It provides a deterministic synthetic benchmark (25 clauses, 30 AI system profiles, 750 clause-profile instances) for evaluating executable obligation activation, evidence-gap detection, cross-clause conflict detection, and evidence-remediation candidate generation under explicit closed-world assumptions and stratified-Datalog inference. Includes benchmark data, gold labels, Datalog rule specifications, Python baseline implementations (static checklist, ontology-only, flat-rule engine), evaluation scripts, bootstrap CI computation, paper-ready tables, and a single-command reproduction pipeline. All random seeds are fixed (seed=42); results are deterministic and fully reproducible.",
   "creators": [
     {

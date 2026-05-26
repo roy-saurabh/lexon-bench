@@ -36,9 +36,9 @@ reasoning tasks:
 | System | T1 F1 | T2 F1 | T3 F1 |
 |--------|-------|-------|-------|
 | **LEXON (full)** | **1.000** | **1.000** | **0.957** |
-| B1 Static checklist | 0.427 | 0.323 | 0.000 |
-| B2 Ontology (no rules) | 0.059 | 0.000 | 0.000 |
-| B3 Flat rules (no graph) | 0.615 | 0.519 | 0.000 |
+| B1 Static checklist | 0.446 | 0.321 | 0.000 |
+| B2 Ontology (no rules) | 0.054 | 0.000 | 0.000 |
+| B3 Flat rules (no graph) | 0.660 | 0.533 | 0.000 |
 
 T3 cross-clause conflict detection: TP=11, FP=1, FN=0 across 30 system profiles.
 T1/T2 F1=1.000 is expected on this synthetic benchmark and confirms faithful implementation
@@ -141,7 +141,7 @@ lexon-bench/
 │   └── evaluation/
 │       ├── metrics.py          # Corpus-level P/R/F1 and confusion counts
 │       ├── bootstrap.py        # Non-parametric bootstrap CIs (1000 iterations)
-│       ├── compare.py          # Statistical comparison (McNemar)
+│       ├── compare.py          # Experimental statistical comparison utilities (unused in main paper)
 │       ├── tables.py           # Paper-ready Markdown tables
 │       └── figures.py          # Matplotlib figures
 ├── rules/
@@ -252,7 +252,7 @@ For the software repository:
   year={2026},
   publisher={GitHub / Zenodo},
   url={https://github.com/roy-saurabh/lexon-bench},
-  version={1.0.0}
+  version={1.0.2}
 }
 ```
 
