@@ -190,14 +190,19 @@ def check_no_placeholders(path: Path) -> list[str]:
 
     Returns list of violations (empty = OK).
     """
-    BAD_TOKENS = ["[EXT]", "TODO", "TBD", "camera-ready", "planned experiment",
-                  "PLACEHOLDER", "INSERT HERE"]
+    BAD_TOKENS = [
+        "[EXT]", "TODO", "TBD", "camera-ready", "planned experiment",
+        "PLACEHOLDER", "INSERT HERE", "companion paper",
+        "real regulatory-text evaluation is reported",
+        "reported in the companion paper", "to be inserted", "[DOI", "[URL",
+    ]
     violations: list[str] = []
     if not path.exists():
         violations.append(f"File not found: {path}")
         return violations
     content = path.read_text()
+    content_lower = content.lower()
     for tok in BAD_TOKENS:
-        if tok in content:
+        if tok.lower() in content_lower:
             violations.append(f"Placeholder '{tok}' found in {path}")
     return violations

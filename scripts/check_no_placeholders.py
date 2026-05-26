@@ -21,6 +21,13 @@ PLACEHOLDER_TOKENS = [
     "PLACEHOLDER",
     "INSERT HERE",
     "NOT YET COMPUTED",
+    # Phrases that contradict the manuscript's "future work" position on real-text evaluation
+    "companion paper",
+    "real regulatory-text evaluation is reported",
+    "reported in the companion paper",
+    "to be inserted",
+    "[DOI",
+    "[URL",
 ]
 
 CHECK_PATHS = [
@@ -41,8 +48,9 @@ def check() -> int:
             missing.append(str(path))
             continue
         content = path.read_text()
+        content_lower = content.lower()
         for tok in PLACEHOLDER_TOKENS:
-            if tok in content:
+            if tok.lower() in content_lower:
                 violations.append(f"{path}: contains '{tok}'")
 
     if missing:

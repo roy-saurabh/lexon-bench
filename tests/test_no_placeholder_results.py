@@ -100,3 +100,32 @@ def test_no_ext_in_table_files():
         assert "[EXT]" not in content, (
             f"[EXT] sentinel found in paper-ready table {path}"
         )
+
+
+def test_outputs_do_not_claim_companion_real_text_evaluation():
+    """Generated artifacts must not contain phrases that contradict the manuscript.
+
+    Manuscript v3 states external regulatory-provision validation is future work.
+    The phrase 'real regulatory-text evaluation is reported in the companion paper'
+    (or variants) must not appear in any committed output or the README.
+    """
+    paths = [
+        Path("outputs/tables/table_activation_gap.md"),
+        Path("outputs/reports/reproducibility_report.md"),
+        Path("README.md"),
+    ]
+    banned = [
+        "real regulatory-text evaluation is reported in the companion paper",
+        "reported in the companion paper",
+        "companion paper",
+    ]
+    for p in paths:
+        if not p.exists():
+            pytest.skip(f"{p} not yet generated")
+        text = p.read_text().lower()
+        for phrase in banned:
+            assert phrase not in text, (
+                f"Banned phrase '{phrase}' found in {p}. "
+                "Manuscript v3 states external validation is future work — "
+                "no 'companion paper' claim should appear in committed outputs."
+            )

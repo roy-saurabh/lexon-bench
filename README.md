@@ -1,7 +1,7 @@
 # LEXON-Bench
 
 [![CI](https://github.com/roy-saurabh/lexon-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/roy-saurabh/lexon-bench/actions/workflows/ci.yml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20397384.svg)](https://doi.org/10.5281/zenodo.20397384)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20398201.svg)](https://doi.org/10.5281/zenodo.20398201)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Data: CC-BY-4.0](https://img.shields.io/badge/Data-CC--BY--4.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
@@ -104,7 +104,7 @@ outputs/
     ontology_predictions.jsonl     # B2 predictions
     flat_rules_predictions.jsonl   # B3 predictions
   tables/
-    table_activation_gap.md        # Table 5 in paper (T1 + T2 with CIs)
+    table_activation_gap.md        # Activation/gap metrics table (T1 + T2 with CIs)
     table_conflicts.md             # T3 conflict detection results
     table_ablation.md              # Ablation (§3.3)
   figures/
@@ -139,7 +139,7 @@ lexon-bench/
 │   │   ├── flat_rules.py       # B3: Untyped rule engine
 │   │   └── llm_optional.py     # LLM baseline (disabled by default)
 │   └── evaluation/
-│       ├── metrics.py          # Corpus-level P/R/F1 and McNemar utilities
+│       ├── metrics.py          # Corpus-level P/R/F1 and confusion counts
 │       ├── bootstrap.py        # Non-parametric bootstrap CIs (1000 iterations)
 │       ├── compare.py          # Statistical comparison (McNemar)
 │       ├── tables.py           # Paper-ready Markdown tables
@@ -271,6 +271,6 @@ Synthetic clauses are NOT official legal text and do NOT constitute legal advice
 > baseline implementations, evaluation scripts, and generated results are openly
 > available in the LEXON-Bench repository at
 > https://github.com/roy-saurabh/lexon-bench and archived on Zenodo
-> (DOI: https://doi.org/10.5281/zenodo.20397384). The benchmark data are synthetic
+> (DOI: https://doi.org/10.5281/zenodo.20398201). The benchmark data are synthetic
 > and contain no personal data. Code is released under the MIT License; synthetic
 > benchmark data are released under CC-BY-4.0.

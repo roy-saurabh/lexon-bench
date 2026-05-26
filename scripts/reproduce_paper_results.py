@@ -178,7 +178,7 @@ def reproduce_all(smoke: bool = False) -> None:
 
     def evaluate_system(
         name: str, preds: list[ReasoningResult], split: str = "test"
-    ) -> AggregateMetrics:
+    ) -> tuple[AggregateMetrics, dict[str, tuple[int, int, int]]]:
         from lexon.evaluation.metrics import compute_corpus_metrics
         pred_index = {p.instance_id: p for p in preds}
         inst_metrics = []
@@ -196,12 +196,12 @@ def reproduce_all(smoke: bool = False) -> None:
                       if i.instance_id in pred_index and i.instance_id in gold_index]
         test_golds = [gold_index[i.instance_id] for i in test_instances
                       if i.instance_id in pred_index and i.instance_id in gold_index]
-        corpus_counts = compute_corpus_metrics(test_preds, test_golds)
-        agg = aggregate_metrics(inst_metrics, name, split, corpus_counts=corpus_counts)
+        counts = compute_corpus_metrics(test_preds, test_golds)
+        agg = aggregate_metrics(inst_metrics, name, split, corpus_counts=counts)
         agg = fill_bootstrap_cis(agg, inst_metrics)
-        return agg
+        return agg, counts
 
-    lexon_agg = evaluate_system("LEXON (full)", lexon_results)
+    lexon_agg, lexon_counts = evaluate_system("LEXON (full)", lexon_results)
     # Overwrite per-instance T3 (always 0 — no within-clause conflicts designed in)
     # with the corpus-level cross-clause T3 metrics computed in Step 2b.
     lexon_agg = lexon_agg.model_copy(update={
@@ -211,8 +211,9 @@ def reproduce_all(smoke: bool = False) -> None:
     })
 
     baseline_aggs: dict[str, AggregateMetrics] = {}
+    baseline_counts: dict[str, dict[str, tuple[int, int, int]]] = {}
     for name, _, _ in baselines:
-        baseline_aggs[name] = evaluate_system(name, baseline_results[name])
+        baseline_aggs[name], baseline_counts[name] = evaluate_system(name, baseline_results[name])
 
     all_systems = [lexon_agg] + list(baseline_aggs.values())
     write_metrics_csv(all_systems, Path("outputs/results/metrics_synthetic.csv"))
@@ -311,9 +312,11 @@ def reproduce_all(smoke: bool = False) -> None:
     # ------------------------------------------------------------------
     print("\n[7/7] Writing reproducibility report...")
     elapsed = time.time() - start
+    all_corpus_counts = {lexon_agg.system_name: lexon_counts, **baseline_counts}
     _write_reproducibility_report(
         lexon_agg, baseline_aggs, elapsed, len(test_instances), smoke,
         t3_tp=t3_tp, t3_fp=t3_fp, t3_fn=t3_fn,
+        corpus_counts=all_corpus_counts,
     )
     print("  ✓ outputs/reports/reproducibility_report.md")
 
@@ -336,9 +339,17 @@ def _write_reproducibility_report(
     t3_tp: int = 0,
     t3_fp: int = 0,
     t3_fn: int = 0,
+    corpus_counts: dict[str, dict[str, tuple[int, int, int]]] | None = None,
 ) -> None:
     from datetime import datetime, timezone
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
+    def _counts_str(name: str, task: str) -> str:
+        if corpus_counts and name in corpus_counts:
+            tp, fp, fn = corpus_counts[name].get(task, (0, 0, 0))
+            return f"TP={tp}, FP={fp}, FN={fn}"
+        return "—"
+
     lines = [
         "# LEXON-Bench Reproducibility Report",
         "",
@@ -349,8 +360,19 @@ def _write_reproducibility_report(
         "",
         "## T1 — Obligation Activation",
         "",
-        "| System | P | R | F1 | 95% CI |",
-        "|--------|---|---|----|--------|",
+        "Corpus-level P/R/F1 are micro-averaged from summed TP/FP/FN across all instances.",
+        "Mean-inst F1 95% CI is a bootstrapped interval over per-instance F1 scores; it",
+        "measures per-instance variability and is NOT an uncertainty interval for corpus F1.",
+        "",
+        "Corpus confusion counts:",
+        f"  {lexon.system_name}: {_counts_str(lexon.system_name, 't1')}",
+    ]
+    for name in baselines:
+        lines.append(f"  {name}: {_counts_str(name, 't1')}")
+    lines += [
+        "",
+        "| System | Corpus P | Corpus R | Corpus F1 | Mean-inst F1 95% CI |",
+        "|--------|----------|----------|-----------|---------------------|",
         f"| {lexon.system_name} | {lexon.t1_precision:.3f} | {lexon.t1_recall:.3f} | {lexon.t1_f1:.3f} | [{lexon.t1_f1_ci_lo:.3f}, {lexon.t1_f1_ci_hi:.3f}] |",
     ]
     for name, agg in baselines.items():
@@ -361,8 +383,19 @@ def _write_reproducibility_report(
         "",
         "## T2 — Evidence-Gap Detection",
         "",
-        "| System | P | R | F1 | 95% CI | FNR |",
-        "|--------|---|---|----|--------|-----|",
+        "Corpus-level P/R/F1 are micro-averaged from summed TP/FP/FN across all instances.",
+        "Mean-inst F1 95% CI is a bootstrapped interval over per-instance F1 scores; it",
+        "measures per-instance variability and is NOT an uncertainty interval for corpus F1.",
+        "",
+        "Corpus confusion counts:",
+        f"  {lexon.system_name}: {_counts_str(lexon.system_name, 't2')}",
+    ]
+    for name in baselines:
+        lines.append(f"  {name}: {_counts_str(name, 't2')}")
+    lines += [
+        "",
+        "| System | Corpus P | Corpus R | Corpus F1 | Mean-inst F1 95% CI | FNR |",
+        "|--------|----------|----------|-----------|---------------------|-----|",
         f"| {lexon.system_name} | {lexon.t2_precision:.3f} | {lexon.t2_recall:.3f} | {lexon.t2_f1:.3f} | [{lexon.t2_f1_ci_lo:.3f}, {lexon.t2_f1_ci_hi:.3f}] | {lexon.t2_false_negative_rate:.3f} |",
     ]
     for name, agg in baselines.items():
@@ -394,6 +427,7 @@ def _write_reproducibility_report(
         "All outputs generated from seed=42 with no external API calls.",
         "Benchmark validated: 25 clauses, 30 profiles, 750 instances (with CF obligations).",
         "No placeholder text in paper-ready tables.",
+        "External validation on real regulatory provisions is future work.",
     ]
     report = "\n".join(lines) + "\n"
     reports_dir = Path("outputs/reports")
