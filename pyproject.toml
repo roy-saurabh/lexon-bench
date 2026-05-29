@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lexon-bench"
-version = "1.0.0"
-description = "LEXON: Executable AI Regulatory Obligation Reasoning — Companion Benchmark Repository"
+version = "1.1.0"
+description = "LEXON: Executable Obligation Reasoning for AI Regulation — Companion Artifact (Artificial Intelligence and Law)"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Roy Saurabh", email = "roy@affectlog.com" }]

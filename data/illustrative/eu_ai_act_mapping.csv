@@ -1,0 +1,8 @@
+provision_id,instrument,actor,obligation_action,condition,evidence_object,exception_or_limitation,lexon_construct,validation_status
+EUAI-ART-09,EU AI Act,Provider,Maintain risk-management system,High-risk AI system,RiskManagementPlan,Scope depends on system classification,Obligation+Condition+EvidenceSpec,Illustrative mapping only
+EUAI-ART-10,EU AI Act,Provider,Apply data governance measures,High-risk AI system using data,DataGovernanceRecord,Evidence sufficiency is context-dependent,Obligation+Condition+EvidenceSpec,Illustrative mapping only
+EUAI-ART-11,EU AI Act,Provider,Maintain technical documentation,High-risk AI system,TechnicalDocumentation,Annex IV details require decomposition,Obligation+EvidenceSpec,Illustrative mapping only
+EUAI-ART-13,EU AI Act,Provider,Provide transparency and instructions for use,High-risk AI system,InstructionsForUse,Interpretive detail remains legal,Obligation+EvidenceSpec,Illustrative mapping only
+EUAI-ART-14,EU AI Act,Provider/Deployer,Enable human oversight,High-risk AI system,HumanOversightProtocol,Role allocation may require legal interpretation,Obligation+Actor+Condition,Illustrative mapping only
+EUAI-ART-15,EU AI Act,Provider,Ensure accuracy robustness and cybersecurity,High-risk AI system,RobustnessEvaluationReport,Thresholds are domain-specific,Obligation+EvidenceSpec,Illustrative mapping only
+EUAI-ANNEX-IV,EU AI Act,Provider,Prepare technical documentation,High-risk AI system,AnnexIVDocumentation,Sub-items require structured decomposition,EvidenceSpec hierarchy,Illustrative mapping only

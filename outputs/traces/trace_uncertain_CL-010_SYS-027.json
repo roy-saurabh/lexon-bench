@@ -1,0 +1,40 @@
+{
+  "trace_id": "TRACE-003",
+  "trace_type": "activation",
+  "clause_id": "CL-010",
+  "obligation_id": "OBL-010-02",
+  "system_id": "SYS-027",
+  "activation_status": "Uncertain",
+  "actor_match": true,
+  "conditions": [
+    {
+      "predicate": "riskLevel",
+      "expected": "HighRisk",
+      "observed": null,
+      "truth_value": "unknown"
+    },
+    {
+      "predicate": "hasAutonomousDecision",
+      "expected": "true",
+      "observed": "true",
+      "truth_value": "true"
+    }
+  ],
+  "exceptions_fired": [],
+  "required_evidence": [
+    "RiskAssessmentReport",
+    "HumanOversightProtocol"
+  ],
+  "held_evidence": [
+    "HumanOversightProtocol"
+  ],
+  "evidence_gaps": [
+    "RiskAssessmentReport"
+  ],
+  "rules_fired": [
+    "R1",
+    "R2"
+  ],
+  "human_review_required": true,
+  "notes": "Activation status is Uncertain because riskLevel property is absent from system profile (three-valued semantics, Definition 4). Research trace generated from conformance suite. Not legal advice."
+}

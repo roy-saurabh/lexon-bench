@@ -1,0 +1,40 @@
+{
+  "trace_id": "TRACE-001",
+  "trace_type": "activation",
+  "clause_id": "CL-002",
+  "obligation_id": "OBL-002-01",
+  "system_id": "SYS-007",
+  "activation_status": "Applicable",
+  "actor_match": true,
+  "conditions": [
+    {
+      "predicate": "riskLevel",
+      "expected": "HighRisk",
+      "observed": "HighRisk",
+      "truth_value": "true"
+    },
+    {
+      "predicate": "deploymentSector",
+      "expected": "Healthcare",
+      "observed": "Healthcare",
+      "truth_value": "true"
+    }
+  ],
+  "exceptions_fired": [],
+  "required_evidence": [
+    "RiskManagementPlan",
+    "TechnicalDocumentation"
+  ],
+  "held_evidence": [
+    "RiskManagementPlan",
+    "TechnicalDocumentation"
+  ],
+  "evidence_gaps": [],
+  "rules_fired": [
+    "R1",
+    "R2",
+    "R4"
+  ],
+  "human_review_required": false,
+  "notes": "Research trace generated from conformance suite. Not legal advice."
+}

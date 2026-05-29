@@ -1,7 +1,7 @@
 {
-  "title": "LEXON-Bench: Executable AI Regulatory Obligation Reasoning — Companion Benchmark Repository",
-  "version": "1.0.2",
-  "description": "LEXON-Bench is the companion benchmark repository for the manuscript 'LEXON: Executable AI Regulatory Obligation Reasoning with Typed Knowledge Graphs and Stratified Datalog' (MDPI Information). It provides a deterministic synthetic benchmark (25 clauses, 30 AI system profiles, 750 clause-profile instances) for evaluating executable obligation activation, evidence-gap detection, cross-clause conflict detection, and evidence-remediation candidate generation under explicit closed-world assumptions and stratified-Datalog inference. Includes benchmark data, gold labels, Datalog rule specifications, Python baseline implementations (static checklist, ontology-only, flat-rule engine), evaluation scripts, bootstrap CI computation, paper-ready tables, and a single-command reproduction pipeline. All random seeds are fixed (seed=42); results are deterministic and fully reproducible.",
+  "title": "LEXON-Bench v1.1.0: Executable Obligation Reasoning for AI Regulation",
+  "version": "1.1.0",
+  "description": "Companion artifact for a submission to Artificial Intelligence and Law (Springer). Provides a deterministic synthetic conformance suite (25 clauses, 30 AI system profiles, 750 clause-profile instances) for verifying executable obligation activation, evidence-gap detection, cross-clause conflict detection, and evidence-remediation candidate generation under explicit closed-world assumptions and stratified-Datalog inference. Includes typed obligation, condition, exception, actor, evidence, and system-profile schemas; Datalog-style rule specifications; Python reference implementation; baseline implementations (static checklist, ontology-only, flat-rule engine); illustrative EU AI Act mapping; derivation-trace examples; formal-property tests; evaluation scripts; bootstrap CI computation; paper-ready tables; and a single-command reproduction pipeline. All random seeds are fixed (seed=42); results are deterministic and fully reproducible. This artifact does not provide legal advice, determine legal compliance, or constitute an expert-validated legal corpus.",
   "creators": [
     {
       "name": "Saurabh, Roy",
@@ -15,22 +15,30 @@
   "access_right": "open",
   "keywords": [
     "AI regulation",
+    "AI and Law",
     "knowledge graphs",
     "Datalog",
     "stratified Datalog",
-    "compliance reasoning",
-    "regulatory information systems",
+    "executable obligation reasoning",
+    "symbolic AI",
+    "conformance suite",
     "evidence-gap detection",
     "conflict detection",
     "computational law",
     "AI governance",
     "EU AI Act",
-    "NIST AI RMF",
-    "ISO/IEC 42001",
-    "benchmark",
+    "derivation traces",
+    "formal-property tests",
     "reproducibility"
   ],
+  "notes": "Companion artifact for an Artificial Intelligence and Law (Springer) submission. This artifact does not provide legal advice, determine legal compliance, or constitute an expert-validated legal corpus. Conformance results: LEXON achieves corpus-level F1=1.000 for T1 (obligation activation) and T2 (evidence-gap detection) on the 150-instance held-out test set; T3 (conflict detection) F1=0.957 (TP=11, FP=1, FN=0). These are conformance-suite results on synthetic data verifying agreement between the reference implementation and the formal conformance oracle. All outputs are reproducible via 'make reproduce' with seed=42. Version history: v1.0.2 archived at DOI 10.5281/zenodo.20399201 (MDPI Information submission artifact). DUAL LICENSE: Source code under MIT License (LICENSE). Synthetic conformance suite data (data/ directory) under CC-BY-4.0 (LICENSE-DATA).",
   "related_identifiers": [
+    {
+      "relation": "isNewVersionOf",
+      "identifier": "10.5281/zenodo.20399201",
+      "resource_type": "software",
+      "scheme": "doi"
+    },
     {
       "relation": "isSupplementTo",
       "identifier": "https://github.com/roy-saurabh/lexon-bench",
@@ -38,7 +46,6 @@
       "scheme": "url"
     }
   ],
-  "notes": "Companion repository for the LEXON manuscript submitted to MDPI Information. Results: LEXON achieves corpus-level F1=1.000 for T1 (obligation activation) and T2 (evidence-gap detection) on the 150-instance held-out test set; T3 (conflict detection) F1=0.957 (TP=11, FP=1, FN=0). All outputs are reproducible via 'make reproduce' with seed=42. DUAL LICENSE: Source code is released under the MIT License (see LICENSE). Synthetic benchmark data (data/ directory) are released under CC-BY-4.0 (see LICENSE-DATA).",
   "language": "eng",
   "communities": [
     {"identifier": "zenodo"}

@@ -1,0 +1,37 @@
+# SHACL Evidence Shape Definitions — STUB
+#
+# Optional baseline for semantic-web comparison only.
+# Requires rdflib extra: pip install -e ".[rdf]"
+# See docs/shacl_baseline.md for full discussion.
+#
+# This SHACL baseline does not implement stratified activation semantics,
+# exception firing, three-valued applicability, or LEXON derivation traces.
+
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix lexon: <https://github.com/roy-saurabh/lexon-bench/ontology#> .
+
+lexon:SystemProfileShape
+    a sh:NodeShape ;
+    sh:targetClass lexon:SystemProfile ;
+    sh:property [
+        sh:path lexon:systemId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path lexon:actorType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] .
+
+lexon:EvidenceSpecShape
+    a sh:NodeShape ;
+    sh:targetClass lexon:EvidenceSpec ;
+    sh:property [
+        sh:path lexon:evidenceId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .

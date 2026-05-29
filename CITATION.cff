@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 type: software
-title: "LEXON-Bench: Executable AI Regulatory Obligation Reasoning — Companion Benchmark Repository"
-version: "1.0.2"
-date-released: "2026-05-26"
+title: "LEXON-Bench v1.1.0: Executable Obligation Reasoning for AI Regulation"
+version: "1.1.0"
+date-released: "2026-05-29"
 authors:
   - family-names: Saurabh
     given-names: Roy
@@ -11,29 +11,35 @@ authors:
     affiliation: AffectLog SAS
     orcid: ""
 abstract: >
-  LEXON-Bench is the companion benchmark repository for the manuscript
-  "LEXON: Executable AI Regulatory Obligation Reasoning with Typed Knowledge
-  Graphs and Stratified Datalog" (submitted to MDPI Information). It provides
-  a deterministic synthetic benchmark (25 clauses, 30 system profiles, 750
-  clause-profile instances) for evaluating executable obligation activation,
-  evidence-gap detection, conflict detection, and evidence-remediation candidate
-  generation under explicit closed-world assumptions and stratified-Datalog
-  inference. All gold labels, rule specifications, baseline implementations,
-  evaluation scripts, and reproduction commands are included.
+  LEXON-Bench is the companion artifact for "LEXON: Executable Obligation Reasoning
+  for AI Regulation with Typed Knowledge Graphs and Stratified Datalog" (submitted
+  to Artificial Intelligence and Law). It provides a deterministic synthetic
+  conformance suite (25 clauses, 30 system profiles, 750 clause-profile instances)
+  for verifying executable obligation activation, evidence-gap detection, conflict
+  detection, and evidence-remediation candidate generation under explicit closed-world
+  assumptions and stratified-Datalog inference. All conformance oracle labels, rule
+  specifications, baseline implementations, derivation-trace examples, illustrative
+  EU AI Act mapping, and reproduction commands are included. This artifact does not
+  provide legal advice, determine legal compliance, or constitute an expert-validated
+  legal corpus.
 keywords:
   - AI regulation
+  - AI and Law
   - knowledge graphs
   - Datalog
-  - compliance reasoning
-  - regulatory information systems
+  - executable obligation reasoning
+  - symbolic AI
+  - conformance suite
   - evidence-gap detection
   - computational law
   - AI governance
-  - MDPI Information
+  - EU AI Act
+  - derivation traces
+  - formal-property tests
 license: MIT
 repository-code: "https://github.com/roy-saurabh/lexon-bench"
 url: "https://github.com/roy-saurabh/lexon-bench"
-doi: "10.5281/zenodo.20399352"
+doi: "TO_BE_MINTED_FOR_V1_1_0"
 
 preferred-citation:
   type: article
@@ -42,8 +48,21 @@ preferred-citation:
       given-names: Roy
       email: roy@affectlog.com
       affiliation: AffectLog SAS
-  title: "LEXON: Executable AI Regulatory Obligation Reasoning with Typed Knowledge Graphs and Stratified Datalog"
-  journal: "Information"
-  publisher: "MDPI"
+  title: "LEXON: Executable Obligation Reasoning for AI Regulation with Typed Knowledge Graphs and Stratified Datalog"
+  journal: "Artificial Intelligence and Law"
+  publisher: "Springer"
   year: 2026
-  notes: "Submitted. Article DOI to be inserted upon acceptance. Software DOI: 10.5281/zenodo.20399352"
+  notes: "Submitted manuscript. Article DOI to be inserted upon acceptance. Companion software artifact v1.1.0 DOI to be inserted after Zenodo release."
+
+version-history:
+  - version: "1.0.2"
+    purpose: "MDPI Information submission artifact"
+    doi: "10.5281/zenodo.20399201"
+    date: "2026-05-26"
+  - version: "1.1.0"
+    purpose: "Artificial Intelligence and Law submission artifact"
+    doi: "TO_BE_MINTED_FOR_V1_1_0"
+    date: "2026-05-29"
+  - version: "2.0.0"
+    purpose: "Planned expert-validated LEXON-Reg corpus"
+    doi: "Planned"
