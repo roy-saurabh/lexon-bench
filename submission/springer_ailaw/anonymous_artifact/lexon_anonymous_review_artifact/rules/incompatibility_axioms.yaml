@@ -1,0 +1,52 @@
+# LEXON Incompatibility Axioms
+# Used by R6 (conflict detection) to identify mutually incompatible actions.
+# Each pair (action1, action2) defines an incompatibility relation.
+# The relation is declared symmetrically where relevant.
+#
+# These axioms are illustrative examples drawn from AI regulation contexts.
+# They do not constitute legal advice.
+
+incompatibility_pairs:
+  - action1: ACT-FullAutomatedDecision
+    action2: ACT-RequireHumanOverride
+    rationale: >
+      A system cannot simultaneously make fully automated decisions AND require
+      human override for all decisions — these are structurally incompatible.
+    symmetric: true
+
+  - action1: ACT-RetainDataMaximal
+    action2: ACT-MinimiseDataRetention
+    rationale: >
+      Retaining maximum data conflicts with minimising data retention obligations.
+    symmetric: true
+
+  - action1: ACT-ProhibitedPurposeUse
+    action2: ACT-PermittedPurposeUse
+    rationale: >
+      Using a system for a prohibited purpose conflicts with using it
+      only for permitted purposes.
+    symmetric: true
+
+  - action1: ACT-DiscloseToPublic
+    action2: ACT-MaintainConfidentiality
+    rationale: >
+      Public disclosure of system details conflicts with confidentiality obligations
+      in some cross-instrument scenarios.
+    symmetric: true
+
+  - action1: ACT-FullAutomatedDecision
+    action2: ACT-ConductHumanReview
+    rationale: >
+      Fully automated decision-making conflicts with conducting human review
+      for the same decisions.
+    symmetric: true
+
+  - action1: ACT-RetainDataMaximal
+    action2: ACT-ConductDPIA
+    rationale: >
+      Retaining maximum data for AI training may conflict with the risk-minimisation
+      objective of a DPIA in certain regulatory contexts.
+    symmetric: false
+    notes: >
+      Non-symmetric: retaining maximum data creates DPIA risk, but a DPIA does
+      not preclude data retention if controls are documented.

@@ -1,0 +1,21 @@
+{
+  "trace_id": "TRACE-004",
+  "trace_type": "conflict",
+  "clause_id": null,
+  "obligation_id_1": "OBL-005-01",
+  "obligation_id_2": "OBL-017-01",
+  "system_id": "SYS-004",
+  "activation_status": null,
+  "actor_match": true,
+  "conditions": [],
+  "exceptions_fired": [],
+  "required_evidence": [],
+  "held_evidence": [],
+  "evidence_gaps": [],
+  "rules_fired": [
+    "R6"
+  ],
+  "conflict_reason": "OBL-005-01 requires action PROHIBIT_AUTOMATED_DECISION; OBL-017-01 requires action REQUIRE_AUTOMATED_DECISION. These actions are declared incompatible in the incompatibility vocabulary.",
+  "human_review_required": true,
+  "notes": "Research trace generated from conformance suite. Not legal advice."
+}

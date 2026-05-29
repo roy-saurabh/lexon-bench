@@ -1,0 +1,13 @@
+system,difficulty,n,t1_f1,t2_f1
+LEXON (full),easy,58,0.0172,0.0
+LEXON (full),medium,27,0.6296,0.4815
+LEXON (full),hard,65,0.0769,0.0615
+B1 Static checklist,easy,58,0.0172,0.0
+B1 Static checklist,medium,27,0.6296,0.4815
+B1 Static checklist,hard,65,0.041,0.0308
+B2 Ontology (no rules),easy,58,0.0,0.0
+B2 Ontology (no rules),medium,27,0.037,0.0
+B2 Ontology (no rules),hard,65,0.0,0.0
+B3 Flat rules (no graph),easy,58,0.0172,0.0
+B3 Flat rules (no graph),medium,27,0.5556,0.4074
+B3 Flat rules (no graph),hard,65,0.0769,0.0615

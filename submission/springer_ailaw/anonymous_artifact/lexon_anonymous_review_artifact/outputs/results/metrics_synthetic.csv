@@ -1,0 +1,5 @@
+system_name,split,n_instances,t1_precision,t1_recall,t1_f1,t1_f1_ci_lo,t1_f1_ci_hi,t2_precision,t2_recall,t2_f1,t2_f1_ci_lo,t2_f1_ci_hi,t3_precision,t3_recall,t3_f1,t2_false_negative_rate
+LEXON (full),test,150,1.0,1.0,1.0,0.0933,0.2067,1.0,1.0,1.0,0.06,0.16,0.9167,1.0,0.9565,0.0
+B1 Static checklist,test,150,0.2925,0.9394,0.446,0.08,0.1911,0.1957,0.9,0.3214,0.0533,0.1467,0.0,0.0,0.0,0.1
+B2 Ontology (no rules),test,150,0.25,0.0303,0.0541,0.0,0.02,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+B3 Flat rules (no graph),test,150,0.5082,0.9394,0.6596,0.0867,0.1933,0.3733,0.9333,0.5333,0.0533,0.1467,0.0,0.0,0.0,0.0667
